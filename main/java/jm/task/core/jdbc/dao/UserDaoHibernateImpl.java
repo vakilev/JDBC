@@ -28,7 +28,7 @@ public class UserDaoHibernateImpl implements UserDao {
             String sql = "CREATE TABLE IF NOT EXISTS Users " +
                     "(ID BIGINT PRIMARY KEY AUTO_INCREMENT, Name VARCHAR(255), LastName VARCHAR(255), Age TINYINT)";
 
-            session.createQuery(sql).executeUpdate();
+            session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class UserDaoHibernateImpl implements UserDao {
             Transaction transaction = session.beginTransaction();
             String sql = "DROP TABLE IF EXISTS Users";
 
-            session.createQuery(sql).executeUpdate();
+            session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class UserDaoHibernateImpl implements UserDao {
             Transaction transaction = session.beginTransaction();
             String sql = "TRUNCATE TABLE Users";
 
-            session.createQuery(sql).executeUpdate();
+            session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();

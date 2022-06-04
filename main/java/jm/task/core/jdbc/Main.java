@@ -14,16 +14,13 @@ public class Main {
         us.saveUser("имя2", "Фамилия2", (byte) 34);
         us.saveUser("имя3", "Фамилия3", (byte) 44);
         us.saveUser("имя4", "Фамилия4", (byte) 54);
+        System.out.println("--------------------------------");
 
         for (User user : us.getAllUsers()) {
             System.out.println(user);
         }
 
-        System.out.println("--------------------------------");
-
         us.cleanUsersTable();
-
-        System.out.println("--------------------------------");
 
         us.dropUsersTable();
     }
