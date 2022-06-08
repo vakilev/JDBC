@@ -11,10 +11,11 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class UserDaoHibernateImpl implements UserDao {
     private static final SessionFactory SESSION_FACTORY = Util.getSessionFactory();
-    private Transaction transaction = null;
+    private String sql;
 
     public UserDaoHibernateImpl() {
 
@@ -24,64 +25,55 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void createUsersTable() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            String sql = "CREATE TABLE IF NOT EXISTS Users " +
+            //            Transaction transaction =
+            session.beginTransaction();
+            sql = "CREATE TABLE IF NOT EXISTS Users " +
                     "(ID BIGINT PRIMARY KEY AUTO_INCREMENT, Name VARCHAR(255), LastName VARCHAR(255), Age TINYINT)";
 
             session.createSQLQuery(sql).executeUpdate();
-            transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 
     @Override
     public void dropUsersTable() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            String sql = "DROP TABLE IF EXISTS Users";
+//          Transaction transaction =
+            session.beginTransaction();
+            sql = "DROP TABLE IF EXISTS Users";
 
             session.createSQLQuery(sql).executeUpdate();
-            transaction.commit();
+//            transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Session session = SESSION_FACTORY.openSession()) {
-            Transaction transaction = session.beginTransaction();
+//          Transaction transaction =
+            session.beginTransaction();
             session.persist(new User(name, lastName, age));
-            transaction.commit();
+//          transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 
     @Override
     public void removeUserById(long id) {
         try (Session session = SESSION_FACTORY.openSession()) {
-            Transaction transaction = session.beginTransaction();
+//            Transaction transaction =
+            session.beginTransaction();
             User user = session.get(User.class, id);
             if (user != null) {
                 session.delete(user);
             }
-            transaction.commit();
+//            transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 
@@ -98,16 +90,14 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            String sql = "TRUNCATE TABLE Users";
+//            Transaction transaction =
+            session.beginTransaction();
+            sql = "TRUNCATE TABLE Users";
 
             session.createSQLQuery(sql).executeUpdate();
-            transaction.commit();
+//            transaction.commit();
         } catch (PersistenceException e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 }

@@ -20,6 +20,14 @@ public class Main {
             System.out.println(user);
         }
 
+        System.out.println("--------------------------------");
+
+        us.removeUserById(2);
+
+        for (User user : us.getAllUsers()) {
+            System.out.println(user);
+        }
+
         us.cleanUsersTable();
 
         us.dropUsersTable();
