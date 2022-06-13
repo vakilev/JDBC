@@ -80,7 +80,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            return session.createQuery("from User").list();
+            return session.createQuery("from User", User.class).list();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
